@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS GrudgeBook_db;
+
+CREATE DATABASE GrudgeBook_db;
