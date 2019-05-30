@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes){
       }
     },
     party_lvl: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       defaultValue: 1,
       allowNull: false,
     }
