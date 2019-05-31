@@ -1,29 +1,14 @@
 const router = require('express').Router()
 
-const { getMonsterByCR,
-  getMonsterById,
-  getMonsterByName,
-  getMonsterBySize,
-  getMonsterByType } = require("../../controllers/moster-controller");
+const { getMonsterById, getMonster } = require("../../controllers/moster-controller");
 
+// /api/monsters?cr=""&id=""
 router
-  .route("/:cr")
+  .route("/")
   .get(getMonsterByCR);
 
 router
   .route("/:id")
   .get(getMonsterById);
-
-router
-  .route("/:name")
-  .get(getMonsterByName);
-
-router
-  .route("/:size")
-  .get(getMonsterBySize);
-
-router
-  .route("/:Type")
-  .get(getMonsterByType);
 
 module.exports = router;

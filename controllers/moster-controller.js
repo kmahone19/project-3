@@ -1,28 +1,12 @@
 const { monsters } = require('../models');
 
-
-const getMonsterByName = (req, res) => {
+// req.query => {id : 1} or {cr: ""}
+const getMonster = (req, res) => {
   monsters.findAll({
-    where: {
-      Name: req.params.name
-    }
+    where: req.query
   })
-};
-
-const getMonsterBySize = (req, res) => {
-  monsters.findAll({
-    where: {
-      Size: req.parmas.size
-    }
-  })
-};
-
-const getMonsterByCR = (req, res) => {
-  monsters.findAll({
-    where: {
-      CR: req.params.cr
-    }
-  })
+  .then(monsterData => res.json(monsterData))
+  .catch(err => res.json(err))
 };
 
 const getMonsterById = (req, res) => {
@@ -31,21 +15,11 @@ const getMonsterById = (req, res) => {
       id: req.parmas.id
     }
   })
-};
-
-
-const getMonsterByType = (req, res) => {
-  monsters.findAll({
-    where: {
-      Type: req.params.type
-    }
-  })
+  .then(monsterData => res.json(monsterData));
+  .catch(err => res.json(err));
 };
 
 module.exports = {
-  getMonsterByCR,
   getMonsterById,
-  getMonsterByName,
-  getMonsterBySize,
-  getMonsterByType
+  getMonster
 }
