@@ -17,17 +17,17 @@ const newParty = (req,res) => {
   });
 };
 
-const getPartyInfo = async (req,res) => {
-  const [partyErr, partyInfo] = await handle(Party.findOne({id: req.parmas.id}));
+const getPartyInfo = (req,res) => {
 
-  if(partyErr){
-    res.status(500).json(partyErr);
-  } else {
-    res.status(200).json(partyInfo)
-  };
+  Party.findAll({
+    where: {
+      id: req.params.id
+    }
+  })
+ 
 };
 
-const updatePartyInfo = async (req, res, next) => {
+const updatePartyInfo = async (req, res) => {
   Party.update({
     party_name: req.body.party_name,
     party_lvl: req.body.party_lvl
@@ -35,9 +35,7 @@ const updatePartyInfo = async (req, res, next) => {
     {
     where: req.params.id
   })
-  .then(rowsUpdated => releaseEvents.json(rowsUpdated)
-  .catch(next)  
-  )
+  .then(rowsUpdated => releaseEvents.json(rowsUpdated))
 }
 
 module.exports = {

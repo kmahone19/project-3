@@ -12,7 +12,7 @@ router
   .post(newParty);
 
 router
-  .route("/update")
+  .route("/update/:id")
   .put(updatePartyInfo)
 
 module.exports = router;

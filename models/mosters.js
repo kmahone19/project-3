@@ -60,5 +60,6 @@ module.exports = function(sequelize, DataTypes){
     Author:{
       type: DataTypes.STRING
     }
-  })
-}
+});
+return Mosnter;
+};
