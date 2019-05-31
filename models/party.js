@@ -1,3 +1,5 @@
+const User = require("./User")
+
 module.exports = function(sequelize, DataTypes){
   var Party = sequelize.define("Party", {
     party_name: {
@@ -16,6 +18,8 @@ module.exports = function(sequelize, DataTypes){
   {
     timestamps: false
   });
+
+  Party.belongsTo(User);
 
   return Party;
 };

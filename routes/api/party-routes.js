@@ -1,14 +1,18 @@
 const router = require('express').Router()
 const withAuth = require('../../middleware/authentication');
 
-const { getPartyInfo, newParty } = require("../../controllers/party-controller");
+const { getPartyInfo, newParty, updatePartyInfo } = require("../../controllers/party-controller");
 
 router
   .route("/")
   .get(withAuth, getPartyInfo);
 
-router 
+router
   .route("/register")
-  .post(newParty)
+  .post(newParty);
+
+router
+  .route("/update")
+  .put(updatePartyInfo)
 
 module.exports = router;
