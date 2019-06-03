@@ -1,17 +1,17 @@
 import React from 'react';
-import Jumbotron from "../components/jumbtron";
+import Jumbotron from "../components/jumbotron";
 import Row from "../components/row";
 import Col from "../components/col";
-import { getMonster, getMonsterById } from '../utils/API'
+import { findMonster, findMonsterById } from '../utils/API'
 
 const sizeArr = ["Gargantuan", "Huge", "Large", "Medium", "Small", "Tiny"];
 
 const typeArr = ["Abberation", "Beast", " Celestial", "Construct", "Dragon", "Elemental", "Fey", "fey(elf)", "Fiend", "Fiend (Demon)", "Fiend (Demon)Fiend (Shapechanger)", "Fiend (Demon,Orc)", "Fiend (Devil)", "Fiend (Shapechanger)", "Fiend (Yugoloth)", "Giant", "Giant (Giant, Cloud)", "Giant (Giant, fire)", "Giant (Giant, Frost)", "Giant (Giant, Hill)", "Giant (Giant, Stone)", "Giant (Giant, Storm)", "Humanoid", "Humanoid (Any race)", "Humanoid (Derro)", "Humanoid (Dwarf)", "Humanoid (Elf)", "Humanoid (Firenewt)", "Humanoid (Gith)", "Humanoid (Gnoll)", "Humanoid (Gobliniod)", "Humanoid (Grung)", "Humanoid (Human)", "Humanoid (Human)Humanoid (Shapechanger)", "Humanoid (Kobold)", "Humanoid (Meazel)", "Humanoid (Mongrelfolk)", "Humanoid (Nagpa)", "Humanoid (Orc)", "Humanoid (Shapechanger)", "Humanoid (Tabaxi)", "Humanoid (Torle)", "Humanoid (Troglodtye)", "Humanoid (Xvart)", "Humanoid (Yuan-Ti)", "Monstrosity", "Monstrosity (Shapechanger)Monstrosity (Yuan-Ti)", "Ooze", "Plant", "Undead", "Undead (Titan)"
 ];
 
-const crArr = [0, 0.13, 0.25, 0.5, 1, 2, 3, 4, 5, 6, , 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 30]
+const crArr = ['0', '0.13', '0.25', '0.5', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '30'];
 
-class search extends React.Component {
+class Search extends React.Component {
 
   state = {
     searchTrem: "",
@@ -29,7 +29,7 @@ class search extends React.Component {
   componentDidMount() {
     const randNum = Math.floor((Math.random * 803) + 1);
 
-    getMonsterById(randNum)
+    findMonsterById(randNum)
       .then(data => console.log(data))
       .catch(err => console.log(err));
   };
@@ -44,10 +44,10 @@ class search extends React.Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    if (!searchTrem && !selCr && !selSize && !selType) {
+    if (!this.state.searchTrem && !this.state.selCr && !this.state.selSize && !this.state.selType) {
       return alert("Looks like your not searching for anyone!");
     } else {
-      getMonster({ Name: searchTrem, Cr: selCr, Size: selSize, Type: selType })
+      findMonster({ Name: this.state.searchTrem, Cr: this.state.selCr, Size: this.state.selSize, Type: this.state.selType })
         .then(data => console.log(data))
         .catch(err => console.log(err))
     }
@@ -74,7 +74,9 @@ class search extends React.Component {
                           <option selected>Select A Size</option>
                           {
                             this.state.sizes.map(size => {
-                              <option value={size} key={size}>{size}</option>
+                              return (
+                                <option value={size} key={size}>{size}</option>
+                              )
                             })
                           }
 
@@ -85,7 +87,9 @@ class search extends React.Component {
                           <option selected>Select A Challenge Rating</option>
                           {
                             this.state.crs.map(cr => {
-                              <option value={cr} key={cr}>{cr}</option>
+                              return (
+                                <option value={cr} key={cr}>{cr}</option>
+                              )
                             })
                           }
                         </select>
@@ -95,7 +99,9 @@ class search extends React.Component {
                           <option selected>Select A Type</option>
                           {
                             this.state.types.map(type => {
-                              <option value={type} key={type}>{type}</option>
+                              return (
+                                <option value={type} key={type}>{type}</option>
+                              )
                             })
                           }
                         </select>
@@ -115,4 +121,4 @@ class search extends React.Component {
 
 }
 
-export default search;
+export default Search;

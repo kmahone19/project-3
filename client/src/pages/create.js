@@ -1,5 +1,6 @@
 import React from 'react';
-import Jumbotron from "../components/jumbtron";
+import Jumbotron from "../components/jumbotron";
+
 
 
 class create extends React.Component{
@@ -14,5 +15,5 @@ class create extends React.Component{
       </React.Fragment>
     )
   }
-
 }
+export default create

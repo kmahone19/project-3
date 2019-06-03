@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Search from "./pages/search";
-import Create from "./pages/create";
+import Create from "./pages/create.js";
 import About from "./pages/about";
+import NavTabs from "./components/navbar"
 
 function App() {
   return (

@@ -29,11 +29,11 @@ class login extends React.Component {
         <div className="tab-pane active" id="login" role="tabpanel">
           <form id="login-form">
             <div className="form-group">
-              <label for="email-input-login">Email</label>
+              <label htmlfor="email-input-login">Email</label>
               <input type="text" id="email-input-login" className="form-control" />
             </div>
             <div className="form-group">
-              <label for="password-input-login">password</label>
+              <label htmlfor="password-input-login">password</label>
               <input type="password" id="password-input-login" className="form-control" />
             </div>
             <button type="submit" className="btn btn-block btn-success">Login!</button>
