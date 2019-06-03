@@ -50,9 +50,18 @@ class Search extends React.Component {
       findMonster({ Name: this.state.searchTrem, Cr: this.state.selCr, Size: this.state.selSize, Type: this.state.selType })
         .then(data => console.log(data))
         .catch(err => console.log(err))
-    }
-  }
+    };
+  };
 
+  handleDiceRoll= event =>{
+    event.preventDefault();
+    
+    const newNUm = Math.floor((Math.random * 6) + 1);
+
+    this.setState({
+      EncounterNum: {newNUm}
+    });
+  }
 
   render() {
 
@@ -111,6 +120,15 @@ class Search extends React.Component {
                   </Row>
                 </div>
               </div>
+            </Col>
+            <Col>
+            <div className="card text-center">
+              <h2 className="card-header">How Many are you gonna fight?</h2>
+              <div className="card-body">
+                <h3 className="display-3">{this.state.EncounterNum}</h3>
+                <button className="btn btn-danger" onClick={this.handleDiceRoll}>Roll the dice!</button>
+              </div>
+            </div>
             </Col>
           </Row>
         </div>

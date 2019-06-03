@@ -14,8 +14,8 @@ export const getPartyInfo = () =>{
   return axios.get("/api/party/");
 };
 
-export const addParty = () =>{
-  return axios.post("/api/party/register");
+export const addParty = partyData =>{
+  return axios.post("/api/party/register", {partyData});
 };
 
 export const updateParty = (partyId, partyData) =>{
