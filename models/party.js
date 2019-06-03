@@ -1,4 +1,3 @@
-const User = require("./User")
 
 module.exports = function(sequelize, DataTypes){
   var Party = sequelize.define("Party", {
@@ -19,7 +18,9 @@ module.exports = function(sequelize, DataTypes){
     timestamps: false
   });
 
-  Party.belongsTo(User);
+  Party.associate = function(models) {
+    Party.belongsTo(models.User)
+  }
 
   return Party;
 };

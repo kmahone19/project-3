@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
-const handle = require("../utile/promise-handler");
+const handle = require("../utils/promise-handler");
 
 const secret ="supersecret";
 

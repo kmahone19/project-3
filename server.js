@@ -15,6 +15,6 @@ const routes = require('./routes');
 
 app.use(routes);
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on http://localhost:${PORT}`));
 });

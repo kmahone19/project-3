@@ -19,7 +19,7 @@ export const addParty = () =>{
 };
 
 export const updateParty = (partyId, partyData) =>{
-  return axios.put(`/api/party/update/${Id}`);
+  return axios.put(`/api/party/update/${partyId}`, partyData);
 };
 
 // expect query to look like {id: 1} or {size: "big"}

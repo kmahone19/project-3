@@ -15,7 +15,7 @@ const getMonsterById = (req, res) => {
       id: req.parmas.id
     }
   })
-  .then(monsterData => res.json(monsterData));
+  .then(monsterData => res.json(monsterData))
   .catch(err => res.json(err));
 };
 

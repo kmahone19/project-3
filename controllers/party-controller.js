@@ -1,5 +1,4 @@
 const { Party } = require('../models');
-const handle = require('../utils/promise-handler');
 
 const newParty = (req,res) => {
   console.log(req.body);

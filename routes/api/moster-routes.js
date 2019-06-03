@@ -5,7 +5,7 @@ const { getMonsterById, getMonster } = require("../../controllers/moster-control
 // /api/monsters?cr=""&id=""
 router
   .route("/")
-  .get(getMonsterByCR);
+  .get(getMonster);
 
 router
   .route("/:id")

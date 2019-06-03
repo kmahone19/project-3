@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt");
-const Party = require("./party")
 
 module.exports = function(sequelize, DataTypes){
   const User = sequelize.define("User", {
@@ -41,7 +40,9 @@ module.exports = function(sequelize, DataTypes){
     user.password = bcrypt.hashSync(user.password,  bcrypt.genSaltSync(10), null);
   });
 
-  User.hasMany(Party);
+  User.associate = function(models) {
+    User.hasMany(models.Party);
+  }
 
   return User;
 }
