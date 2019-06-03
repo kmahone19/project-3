@@ -1,6 +1,14 @@
 import React from 'react';
+import { getUserInfo } from "../utils/API"
 
 class userInfo extends React.Component {
+
+  componentDidMount(){
+    getUserInfo()
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+  }
+
   render() {
     return (
 

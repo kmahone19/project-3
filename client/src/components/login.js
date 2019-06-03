@@ -1,21 +1,42 @@
 import React from 'react';
+import { loginUser } from "../utils/API";
 
 class login extends React.Component {
 
+  state = {
+    email: "",
+    password: ""
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event =>{
+    event.preventDefault();
+    
+    loginUser(userData)
+      .then(console.log("success"))
+      .catch(err => console.log(err))
+  }
+
   render() {
     return (
-      <div class="tab-content my-4" id="forms">
-        <div class="tab-pane active" id="login" role="tabpanel">
+      <div className="tab-content my-4" id="forms">
+        <div className="tab-pane active" id="login" role="tabpanel">
           <form id="login-form">
-            <div class="form-group">
+            <div className="form-group">
               <label for="email-input-login">Email</label>
-              <input type="text" id="email-input-login" class="form-control" />
+              <input type="text" id="email-input-login" className="form-control" />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="password-input-login">password</label>
-              <input type="password" id="password-input-login" class="form-control" />
+              <input type="password" id="password-input-login" className="form-control" />
             </div>
-            <button type="submit" class="btn btn-block btn-success">Login!</button>
+            <button type="submit" className="btn btn-block btn-success">Login!</button>
           </form>
         </div>
       </div>
