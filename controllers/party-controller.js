@@ -23,7 +23,11 @@ const getPartyInfo = (req,res) => {
       id: req.params.id
     }
   })
- 
+  .then(dbPartydata => res.json(dbPartydata))
+  .catch(err => {
+    console.log(err);
+    res.json(err);
+  });
 };
 
 const updatePartyInfo = async (req, res) => {
@@ -35,6 +39,10 @@ const updatePartyInfo = async (req, res) => {
     where: req.params.id
   })
   .then(rowsUpdated => releaseEvents.json(rowsUpdated))
+  .catch(err => {
+    console.log(err);
+    res.json(err);
+  });
 }
 
 module.exports = {

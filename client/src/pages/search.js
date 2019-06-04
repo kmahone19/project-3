@@ -43,10 +43,22 @@ class Search extends React.Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    findMonster({
-      Name : this.state.searchTerm
-    })
-    
+     if (!this.state.searchTerm && !this.state.selCr && !this.state.selSize && !this.state.selType) {
+      return alert("Looks like your not searching for anyone!")
+    }
+
+    const monsterSearch = {
+      Name: this.state.searchTerm || null,
+      Type: this.state.selType || null,
+      Size: this.state.selSize || null,
+      CR: this.state.selCr || null
+    }
+
+    findMonster(monsterSearch)
+      .then(monsterData => {
+        console.log(monsterData)
+      })
+
   };
 
   render() {
@@ -56,14 +68,14 @@ class Search extends React.Component {
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Search for your next grudge match!"} />
         <div className="container">
           <Row>
-            <div className="card">
+            <div className="card col-12 col-md-8">
               <div className="card-body">
                 <Row>
                   <form>
-                    <div className="col-md-12">
-                    <input type="text" className="form-control" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
+                    <div className="col-3">
+                      <input type="text" className="form-control" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-3">
                       <select name="size">
                         <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Size</option>
                         {
@@ -76,7 +88,7 @@ class Search extends React.Component {
 
                       </select>
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-3">
                       <select name="cr">
                         <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Challenge Rating</option>
                         {
@@ -88,7 +100,7 @@ class Search extends React.Component {
                         }
                       </select>
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-3">
                       <select name="Type">
                         <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Type</option>
                         {
@@ -105,7 +117,6 @@ class Search extends React.Component {
                 </Row>
               </div>
             </div>
-          
             <UserAuth />
           </Row>
         </div>
