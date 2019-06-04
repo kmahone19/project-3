@@ -1,8 +1,8 @@
-const { monsters } = require('../models');
+const { Monsters } = require('../models');
 
 // req.query => {id : 1} or {cr: ""}
 const getMonster = (req, res) => {
-  monsters.findAll({
+  Monsters.findAll({
     where: req.query
   })
   .then(monsterData => res.json(monsterData))
@@ -10,9 +10,9 @@ const getMonster = (req, res) => {
 };
 
 const getMonsterById = (req, res) => {
-  monsters.findAll({
+  Monsters.findAll({
     where: {
-      id: req.parmas.id
+      id: req.params.id
     }
   })
   .then(monsterData => res.json(monsterData))

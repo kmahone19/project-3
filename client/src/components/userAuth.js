@@ -6,7 +6,7 @@ import SignUp from "../components/signup"
 class userAuth extends React.Component {
 
   state = {
-    currentForm: false
+    currentForm: true
   }
 
   handleButtonClick = value => {

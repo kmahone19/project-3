@@ -27,10 +27,9 @@ class Search extends React.Component {
 
 
   componentDidMount() {
-    const randNum = Math.floor((Math.random * 803) + 1);
-
+    const randNum = parseInt(Math.floor((Math.random() * 798) + 1));
     findMonsterById(randNum)
-      .then(data => console.log(data))
+      .then(data => console.log(data.data[0]))
       .catch(err => console.log(err));
   };
 
@@ -52,15 +51,6 @@ class Search extends React.Component {
         .catch(err => console.log(err))
     };
   };
-
-  // handleDiceRoll = () => {
-  
-  //   const newNUm = Math.floor((Math.random * 6) + 1);
-
-  //   this.setState({
-  //     EncounterNum: { newNUm }
-  //   });
-  // }
 
   render() {
 
@@ -90,7 +80,7 @@ class Search extends React.Component {
                       </select>
                     </div>
                     <div className="col-md-12">
-                      <select name="cr" id="">
+                      <select name="cr">
                         <option defaultValue>Select A Challenge Rating</option>
                         {
                           this.state.crs.map(cr => {
@@ -113,18 +103,12 @@ class Search extends React.Component {
                         }
                       </select>
                     </div>
-                    <button type="button" id="flight-status-submit" class="btn btn-primary col-md-8 ml-3">Submit</button>
+                    <button type="button" id="flight-status-submit" className="btn btn-primary col-md-8 ml-3" onClick={this.handleFormSubmit} >Submit</button>
                   </form>
                 </Row>
               </div>
             </div>
-            {/* <div className="card text-center">
-              <h2 className="card-header">How Many are you gonna fight?</h2>
-              <div className="card-body">
-                <h3 className="display-3">{this.state.EncounterNum}</h3>
-                <button className="btn btn-danger" onClick={this.handleDiceRoll}>Roll the dice!</button>
-              </div>
-            </div> */}
+          
             <UserAuth />
           </Row>
         </div>

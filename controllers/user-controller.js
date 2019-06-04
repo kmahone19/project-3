@@ -9,7 +9,7 @@ const register = (req, res) =>{
 
   const { email, password, firstName, lastName } = req.body;
 
-  User.Create({
+  User.create({
     email,
     password,
     firstName,
