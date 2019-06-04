@@ -24,9 +24,10 @@ const register = (req, res) =>{
 
 const login = async (req, res) => {
 
+  console.log("this works")
   const { email, password } = req.body;
 
-  const [findUserErr, userInfo] = await handle(User.findOne({ email }));
+  const [findUserErr, userInfo] = await handle(User.findOne({ where: {email} }));
 
   if(findUserErr){
     console.log(findUserErr);
@@ -47,12 +48,12 @@ const login = async (req, res) => {
     } else {
       const payload = {
         id: userInfo.id,
-        email: userInfor.email
+        email: userInfo.email
       };
       const token = jwt.sign(payload, secret, {
         expiresIn: "1h"
       });
-      res.status(200).json(token);
+      res.cookie('token', token, {httpOnly: true}).status(200).json(token);
     }
   }
 };

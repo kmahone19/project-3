@@ -14,7 +14,7 @@ const crArr = ['0', '0.13', '0.25', '0.5', '1', '2', '3', '4', '5', '6', '7', '8
 class Search extends React.Component {
 
   state = {
-    searchTrem: "",
+    searchTerm: "",
     monsterList: [],
     EncounterNum: 0,
     sizes: sizeArr,
@@ -43,13 +43,10 @@ class Search extends React.Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    if (!this.state.searchTrem && !this.state.selCr && !this.state.selSize && !this.state.selType) {
-      return alert("Looks like your not searching for anyone!");
-    } else {
-      findMonster({ Name: this.state.searchTrem, Cr: this.state.selCr, Size: this.state.selSize, Type: this.state.selType })
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
-    };
+    findMonster({
+      Name : this.state.searchTerm
+    })
+    
   };
 
   render() {
@@ -64,10 +61,10 @@ class Search extends React.Component {
                 <Row>
                   <form>
                     <div className="col-md-12">
-                      <input type="text" className="form-control" placeholder="Search a Monster" onChange={this.handleInputChange} />
+                    <input type="text" className="form-control" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
                     </div>
                     <div className="col-md-12">
-                      <select name="size" id="">
+                      <select name="size">
                         <option defaultValue>Select A Size</option>
                         {
                           this.state.sizes.map(size => {
@@ -92,7 +89,7 @@ class Search extends React.Component {
                       </select>
                     </div>
                     <div className="col-md-12">
-                      <select name="Type" id="">
+                      <select name="Type">
                         <option defaultValue>Select A Type</option>
                         {
                           this.state.types.map(type => {

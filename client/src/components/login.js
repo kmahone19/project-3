@@ -5,7 +5,8 @@ class login extends React.Component {
 
   state = {
     email: "",
-    password: ""
+    password: "",
+    token: ""
   }
 
   handleInputChange = event => {
@@ -49,11 +50,11 @@ class login extends React.Component {
         <div className="tab-pane active" id="login" role="tabpanel">
           <form id="login-form">
             <div className="form-group">
-              <label htmlfor="email-input-login">Email</label>
+              <label htmlFor="email-input-login">Email</label>
               <input type="text" id="email-input-login" className="form-control" value={this.state.email} name="email" onChange={this.handleInputChange} />
             </div>
             <div className="form-group">
-              <label htmlfor="password-input-login">password</label>
+              <label htmlFor="password-input-login">password</label>
               <input type="password" id="password-input-login" className="form-control" value={this.state.password} name="password" onChange={this.handleInputChange} />
             </div>
             <button type="submit" className="btn btn-block btn-success" onClick={this.handleFormSubmit} >Login!</button>
