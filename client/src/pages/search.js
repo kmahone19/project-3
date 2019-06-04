@@ -65,7 +65,7 @@ class Search extends React.Component {
                     </div>
                     <div className="col-md-12">
                       <select name="size">
-                        <option defaultValue>Select A Size</option>
+                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Size</option>
                         {
                           this.state.sizes.map(size => {
                             return (
@@ -78,7 +78,7 @@ class Search extends React.Component {
                     </div>
                     <div className="col-md-12">
                       <select name="cr">
-                        <option defaultValue>Select A Challenge Rating</option>
+                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Challenge Rating</option>
                         {
                           this.state.crs.map(cr => {
                             return (
@@ -90,7 +90,7 @@ class Search extends React.Component {
                     </div>
                     <div className="col-md-12">
                       <select name="Type">
-                        <option defaultValue>Select A Type</option>
+                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Type</option>
                         {
                           this.state.types.map(type => {
                             return (

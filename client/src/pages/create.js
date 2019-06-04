@@ -1,8 +1,8 @@
 import React from 'react';
 import Jumbotron from "../components/jumbotron";
 import Row from "../components/row";
-import Col from "../components/col";
-import { getPartyInfo,addParty,updateParty } from "../utils/API"
+import { getPartyInfo,addParty,updateParty } from "../utils/API";
+import UserAuth from "../components/userAuth";
 
 
 const lvlArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
@@ -66,7 +66,6 @@ class create extends React.Component {
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Create A Party!"} />
         <div className="container">
           <Row>
-            <Col>
               <div className="card">
                 <h2 className="card-header">Create Your Party!</h2>
                 <div className="card-body">
@@ -91,7 +90,7 @@ class create extends React.Component {
                   </form>
                 </div>
               </div>
-            </Col>
+            <UserAuth />
           </Row>
         </div>
 
