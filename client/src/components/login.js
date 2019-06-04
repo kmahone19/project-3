@@ -1,5 +1,5 @@
 import React from 'react';
-import { loginUser } from "../utils/API";
+import { loginUser, getUserInfo } from "../utils/API";
 
 class login extends React.Component {
 
@@ -17,10 +17,30 @@ class login extends React.Component {
 
   handleFormSubmit = event =>{
     event.preventDefault();
+
+    const userData= {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    if(!this.state.email || !this.state.password){
+      return alert("Looks like you forgot something, Please Try Again!")
+    }
+
+    console.log(userData);
     
     loginUser(userData)
-      .then(console.log("success"))
+      .then(accessToken =>{
+        console.log(accessToken);
+        localStorage.setItem("accessToken", accessToken);
+        this.handleGetUserInfo();
+      })
       .catch(err => console.log(err))
+  }
+
+  handleGetUserInfo = ()=>{
+    const token = localStorage.getItem("accessToken");
+    getUserInfo(token);
   }
 
   render() {
@@ -30,13 +50,13 @@ class login extends React.Component {
           <form id="login-form">
             <div className="form-group">
               <label htmlfor="email-input-login">Email</label>
-              <input type="text" id="email-input-login" className="form-control" />
+              <input type="text" id="email-input-login" className="form-control" value={this.state.email} name="email" onChange={this.handleInputChange} />
             </div>
             <div className="form-group">
               <label htmlfor="password-input-login">password</label>
-              <input type="password" id="password-input-login" className="form-control" />
+              <input type="password" id="password-input-login" className="form-control" value={this.state.password} name="password" onChange={this.handleInputChange} />
             </div>
-            <button type="submit" className="btn btn-block btn-success">Login!</button>
+            <button type="submit" className="btn btn-block btn-success" onClick={this.handleFormSubmit} >Login!</button>
           </form>
         </div>
       </div>

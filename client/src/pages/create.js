@@ -30,9 +30,31 @@ class create extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+
+    const partyData = {
+      party_name: this.state.partyName,
+      party_lvl: this.state.partylvl
+    };
     
-    addParty(partydata)
-      .then(console.log(success))
+    addParty(partyData)
+      .then(partyData =>{
+        console.log(partyData)
+      })
+      .catch(err => console.log(err));
+  }
+
+  handleUpdateParty = event =>{
+    event.preventDefault();
+
+    const partyData = {
+      party_name: this.state.partyName,
+      party_lvl: this.state.partylvl
+    };
+
+    updateParty(partyData)
+      .then(partyData => {
+        console.log(partyData);
+      })
       .catch(err => console.log(err));
   }
 
@@ -54,8 +76,8 @@ class create extends React.Component {
                     <input type="text" className="form-control" placeholder="Party Name" onChange={this.handleInputChange} />
                   </div>
                   <div className="col-md-12">
-                    <select name="party_level" id="">
-                      <option selected> Select average party level</option>
+                    <select id="">
+                      <option defaultValue> Select average party level</option>
                       {
                         this.state.lvls.map(lvl =>{
                           return(
@@ -65,7 +87,7 @@ class create extends React.Component {
                       }
                     </select>
                   </div>
-                   <button type="button" id="flight-status-submit" class="btn btn-primary col-md-8 ml-3">Submit</button>
+                   <button type="button" id="flight-status-submit" className="btn btn-primary col-md-8 ml-3">Submit</button>
                   </form>
                 </div>
               </div>

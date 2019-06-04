@@ -1,8 +1,8 @@
 import React from 'react';
 import Jumbotron from "../components/jumbotron";
 import Row from "../components/row";
-import Col from "../components/col";
-import { findMonster, findMonsterById } from '../utils/API'
+import { findMonster, findMonsterById } from '../utils/API';
+import UserAuth from "../components/userAuth";
 
 const sizeArr = ["Gargantuan", "Huge", "Large", "Medium", "Small", "Tiny"];
 
@@ -53,15 +53,14 @@ class Search extends React.Component {
     };
   };
 
-  handleDiceRoll= event =>{
-    event.preventDefault();
-    
-    const newNUm = Math.floor((Math.random * 6) + 1);
+  // handleDiceRoll = () => {
+  
+  //   const newNUm = Math.floor((Math.random * 6) + 1);
 
-    this.setState({
-      EncounterNum: {newNUm}
-    });
-  }
+  //   this.setState({
+  //     EncounterNum: { newNUm }
+  //   });
+  // }
 
   render() {
 
@@ -70,66 +69,63 @@ class Search extends React.Component {
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Search for your next grudge match!"} />
         <div className="container">
           <Row>
-            <Col>
-              <div className="card">
-                <div className="card-body">
-                  <Row>
-                    <form>
-                      <div className="col-md-12">
-                        <input type="text" className="form-control" placeholder="Search a Monster" onChange={this.handleInputChange} />
-                      </div>
-                      <div className="col-md-12">
-                        <select name="size" id="">
-                          <option selected>Select A Size</option>
-                          {
-                            this.state.sizes.map(size => {
-                              return (
-                                <option value={size} key={size}>{size}</option>
-                              )
-                            })
-                          }
+            <div className="card">
+              <div className="card-body">
+                <Row>
+                  <form>
+                    <div className="col-md-12">
+                      <input type="text" className="form-control" placeholder="Search a Monster" onChange={this.handleInputChange} />
+                    </div>
+                    <div className="col-md-12">
+                      <select name="size" id="">
+                        <option defaultValue>Select A Size</option>
+                        {
+                          this.state.sizes.map(size => {
+                            return (
+                              <option value={size} key={size}>{size}</option>
+                            )
+                          })
+                        }
 
-                        </select>
-                      </div>
-                      <div className="col-md-12">
-                        <select name="cr" id="">
-                          <option selected>Select A Challenge Rating</option>
-                          {
-                            this.state.crs.map(cr => {
-                              return (
-                                <option value={cr} key={cr}>{cr}</option>
-                              )
-                            })
-                          }
-                        </select>
-                      </div>
-                      <div className="col-md-12">
-                        <select name="Type" id="">
-                          <option selected>Select A Type</option>
-                          {
-                            this.state.types.map(type => {
-                              return (
-                                <option value={type} key={type}>{type}</option>
-                              )
-                            })
-                          }
-                        </select>
-                      </div>
-                      <button type="button" id="flight-status-submit" class="btn btn-primary col-md-8 ml-3">Submit</button>
-                    </form>
-                  </Row>
-                </div>
+                      </select>
+                    </div>
+                    <div className="col-md-12">
+                      <select name="cr" id="">
+                        <option defaultValue>Select A Challenge Rating</option>
+                        {
+                          this.state.crs.map(cr => {
+                            return (
+                              <option value={cr} key={cr}>{cr}</option>
+                            )
+                          })
+                        }
+                      </select>
+                    </div>
+                    <div className="col-md-12">
+                      <select name="Type" id="">
+                        <option defaultValue>Select A Type</option>
+                        {
+                          this.state.types.map(type => {
+                            return (
+                              <option value={type} key={type}>{type}</option>
+                            )
+                          })
+                        }
+                      </select>
+                    </div>
+                    <button type="button" id="flight-status-submit" class="btn btn-primary col-md-8 ml-3">Submit</button>
+                  </form>
+                </Row>
               </div>
-            </Col>
-            <Col>
-            <div className="card text-center">
+            </div>
+            {/* <div className="card text-center">
               <h2 className="card-header">How Many are you gonna fight?</h2>
               <div className="card-body">
                 <h3 className="display-3">{this.state.EncounterNum}</h3>
                 <button className="btn btn-danger" onClick={this.handleDiceRoll}>Roll the dice!</button>
               </div>
-            </div>
-            </Col>
+            </div> */}
+            <UserAuth />
           </Row>
         </div>
 

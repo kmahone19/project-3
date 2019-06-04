@@ -1,13 +1,28 @@
 import React from 'react';
-import { getUserInfo } from "../utils/API"
+import { getPartyInfo } from "../utils/API"
 
 class userInfo extends React.Component {
 
-  componentDidMount(){
-    getUserInfo()
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
-  }
+ handleLogOut = event =>{
+  event.preventDefault();
+
+  localStorage.removeItem("accessToken");
+
+ }
+
+ handlePartyInfo = () =>{
+   const token = localStorage.getItem("accessToken");
+
+   if(!token){
+     return alert("You must be logged in!")
+   }
+
+   getPartyInfo()
+    .then(partyData => {
+      console.log(partyData);
+      
+    })
+ }
 
   render() {
     return (
@@ -16,7 +31,7 @@ class userInfo extends React.Component {
         <h3 id="full-name" class="font-weight-bold"></h3>
         <div class="card-body">
           <button id="party-btn" class="btn btn-block btn-info">Show Your Parties!</button>
-          <button id="logout" class="btn btn-block btn-warning"> logout</button>
+          <button id="logout" class="btn btn-block btn-warning" onclick={handleLogOut} > logout</button>
           <div id="parties"></div>
         </div>
       </div>
