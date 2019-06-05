@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function NavTabs() {
   return (
     <ul className="nav nav-tabs">
-      <li className="nav-item">
-        <Link to="/" className={window.location.pathname === "/" ? "nav-link active" : "nav-link"}>
-          Home
+      <li className="navbar-brand display-5">
+        <Link to="/" className={window.location.pathname === "/" ? "nav-link active" : "nav-link"} >
+          Book of Grudges
         </Link>
       </li>
       <li className="nav-item">

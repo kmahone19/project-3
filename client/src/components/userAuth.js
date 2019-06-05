@@ -1,11 +1,12 @@
 import React,{ useState } from 'react';
 import Login from "../components/login";
-import Signup from "../components/signup"
+import SignUp from "../components/signup"
 
 
-function userAuth() {
-
-  const [activeForm, setActiveForm] = useState("login");
+function UserAuth() {
+  
+  
+  const [activeForm, setActiveForm] = useState("signup");
 
   function handleSetActiveForm(formName) {
     setActiveForm(formName);
@@ -33,7 +34,7 @@ function userAuth() {
               {activeForm === "login" ? (
                 <Login activeForm={activeForm} />
               ) : (
-                  <Signup activeForm={activeForm} />
+                  <SignUp activeForm={activeForm} />
                 )}
 
             </div>
@@ -44,4 +45,4 @@ function userAuth() {
   );
 }
 
-export default userAuth;
+export default UserAuth;

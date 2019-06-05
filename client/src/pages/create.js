@@ -80,27 +80,29 @@ class create extends React.Component {
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Create A Party!"} />
         <div className="container">
           <Row>
-            <div className="card col-12 col-md-8">
+            <div className="card col-12 col-md-8 p-0">
               <h2 className="card-header">Create Your Party!</h2>
               <div className="card-body">
                 <form>
-                  <div className="col-4">
-                    <label htmlFor="party-name"> Party Name</label>
-                    <input type="text" className="form-control" placeholder="Party Name" onChange={this.handleInputChange} />
+                  <div className="row  justify-content">
+                    <div className="col-8 m-2">
+                      <label htmlFor="party-name"> Party Name</label>
+                      <input type="text" className="form-control" placeholder="Party Name" onChange={this.handleInputChange} />
+                    </div>
+                    <div className="col-8 m-1">
+                      <select >
+                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}> Select average party level</option>
+                        {
+                          this.state.lvls.map(lvl => {
+                            return (
+                              <option value={lvl} key={lvl}>{lvl}</option>
+                            )
+                          })
+                        }
+                      </select>
+                    </div>
+                    <button type="button" id="flight-status-submit" className="btn btn-primary col-4 ml-3">Submit</button>
                   </div>
-                  <div className="col-4">
-                    <select >
-                      <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}> Select average party level</option>
-                      {
-                        this.state.lvls.map(lvl => {
-                          return (
-                            <option value={lvl} key={lvl}>{lvl}</option>
-                          )
-                        })
-                      }
-                    </select>
-                  </div>
-                  <button type="button" id="flight-status-submit" className="btn btn-primary col-4 ml-3">Submit</button>
                 </form>
               </div>
             </div>

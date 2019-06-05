@@ -1,35 +1,26 @@
 import React from 'react';
 import Jumbotron from "../components/jumbotron";
 import Row from "../components/row";
-import { findMonster, findMonsterById } from '../utils/API';
+import { findMonsterByName, findMonsterById, findMonsterByCr } from '../utils/API';
 import UserAuth from "../components/userAuth";
-
-const sizeArr = ["Gargantuan", "Huge", "Large", "Medium", "Small", "Tiny"];
-
-const typeArr = ["Abberation", "Beast", " Celestial", "Construct", "Dragon", "Elemental", "Fey", "fey(elf)", "Fiend", "Fiend (Demon)", "Fiend (Demon)Fiend (Shapechanger)", "Fiend (Demon,Orc)", "Fiend (Devil)", "Fiend (Shapechanger)", "Fiend (Yugoloth)", "Giant", "Giant (Giant, Cloud)", "Giant (Giant, fire)", "Giant (Giant, Frost)", "Giant (Giant, Hill)", "Giant (Giant, Stone)", "Giant (Giant, Storm)", "Humanoid", "Humanoid (Any race)", "Humanoid (Derro)", "Humanoid (Dwarf)", "Humanoid (Elf)", "Humanoid (Firenewt)", "Humanoid (Gith)", "Humanoid (Gnoll)", "Humanoid (Gobliniod)", "Humanoid (Grung)", "Humanoid (Human)", "Humanoid (Human)Humanoid (Shapechanger)", "Humanoid (Kobold)", "Humanoid (Meazel)", "Humanoid (Mongrelfolk)", "Humanoid (Nagpa)", "Humanoid (Orc)", "Humanoid (Shapechanger)", "Humanoid (Tabaxi)", "Humanoid (Torle)", "Humanoid (Troglodtye)", "Humanoid (Xvart)", "Humanoid (Yuan-Ti)", "Monstrosity", "Monstrosity (Shapechanger)Monstrosity (Yuan-Ti)", "Ooze", "Plant", "Undead", "Undead (Titan)"
-];
-
-const crArr = ['0', '0.13', '0.25', '0.5', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '30'];
 
 class Search extends React.Component {
 
   state = {
     searchTerm: "",
     monsterList: [],
-    EncounterNum: 0,
-    sizes: sizeArr,
-    types: typeArr,
-    crs: crArr,
-    selType: "",
-    selCr: "",
-    selSize: ""
+    Cr: 0
   };
 
 
   componentDidMount() {
     const randNum = parseInt(Math.floor((Math.random() * 798) + 1));
     findMonsterById(randNum)
-      .then(data => console.log(data.data[0]))
+      .then(data => {
+        console.log(data.data[0]);
+        this.state.monsterList.push(data.data[0]);
+        console.log(this.state.monsterList)
+      })
       .catch(err => console.log(err));
   };
 
@@ -42,24 +33,25 @@ class Search extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-
-     if (!this.state.searchTerm && !this.state.selCr && !this.state.selSize && !this.state.selType) {
-      return alert("Looks like your not searching for anyone!")
+    console.log(this.state.searchTerm)
+    console.log(this.state.Cr)
+    if(this.state.searchTerm){
+      this.handleNameSearch();
+    } else{
+      this.handleCrSearch();
     }
-
-    const monsterSearch = {
-      Name: this.state.searchTerm || null,
-      Type: this.state.selType || null,
-      Size: this.state.selSize || null,
-      CR: this.state.selCr || null
-    }
-
-    findMonster(monsterSearch)
-      .then(monsterData => {
-        console.log(monsterData)
-      })
-
   };
+
+  handleNameSearch = () =>{
+    findMonsterByName(this.state.searchTerm)
+      .then(monsterData => console.log(monsterData))
+      .catch(err => console.log(err))
+  }
+  handleCrSearch = () =>{
+    findMonsterByCr(this.state.Cr)
+      .then(monsterData => console.log(monsterData))
+      .catch(err => console.log(err));
+  }
 
   render() {
 
@@ -68,59 +60,84 @@ class Search extends React.Component {
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Search for your next grudge match!"} />
         <div className="container">
           <Row>
-            <div className="card col-12 col-md-8">
+            <div className="card col-12 col-md-8 p-0">
+              <h2 className="card-header"> Search for a Monster!</h2>
               <div className="card-body">
-                <Row>
-                  <form>
-                    <div className="col-3">
-                      <input type="text" className="form-control" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
+                <form>
+                  <div className="row">
+                    <div className="col-6 m-2">
+                    <label htmlFor="monster-search">Search</label>
+                      <input type="text" className="form-control" placeholder="search a monster" id="moster-search" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
                     </div>
-                    <div className="col-3">
-                      <select name="size">
-                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Size</option>
-                        {
-                          this.state.sizes.map(size => {
-                            return (
-                              <option value={size} key={size}>{size}</option>
-                            )
-                          })
-                        }
-
-                      </select>
-                    </div>
-                    <div className="col-3">
-                      <select name="cr">
-                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Challenge Rating</option>
-                        {
-                          this.state.crs.map(cr => {
-                            return (
-                              <option value={cr} key={cr}>{cr}</option>
-                            )
-                          })
-                        }
-                      </select>
-                    </div>
-                    <div className="col-3">
-                      <select name="Type">
-                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}>Select A Type</option>
-                        {
-                          this.state.types.map(type => {
-                            return (
-                              <option value={type} key={type}>{type}</option>
-                            )
-                          })
-                        }
-                      </select>
+                    <div className="col-5 m-2">
+                    <label htmlFor="cr-search">Challenge Rating</label>
+                      <input type="number" className="form-control" id="cr-search" placeholder="search a Challenge Rating" value={this.state.Cr} name="Cr" onChange={this.handleInputChange} />
                     </div>
                     <button type="button" id="flight-status-submit" className="btn btn-primary col-md-8 ml-3" onClick={this.handleFormSubmit} >Submit</button>
-                  </form>
-                </Row>
+                  </div>
+                </form>
               </div>
             </div>
             <UserAuth />
           </Row>
+
+          <div className="card p-0 col-12 mt-2">
+            <h2 className="card-header text-center col-12">Monsters</h2>
+            <div className="card-body">
+              <table className="col-12">
+                <tbody>
+                  <tr>
+                    <th className="m-1" scope="col"> Name </th>
+                    <th className="m-1" scope="col"> Type </th>
+                    <th className="m-1" scope="col"> Size </th>
+                    <th className="m-1" scope="col"> AC </th>
+                    <th className="m-1" scope="col">HP</th>
+                    <th className="m-1" scope="col">Speeds</th>
+                    <th className="m-1" scope="col">STR</th>
+                    <th className="m-1" scope="col"> DEX </th>
+                    <th className="m-1" scope="col"> CON </th>
+                    <th className="m-1" scope="col"> INT </th>
+                    <th className="m-1" scope="col"> WIS </th>
+                    <th className="m-1" scope="col"> CHA </th>
+                    <th className="m-1" scope="col"> SavThrows </th>
+                    <th className="m-1" scope="col"> Skills </th>
+                    <th className="m-1" scope="col"> Sense </th>
+                    <th className="m-1" scope="col"> CR </th>
+                  </tr>
+
+                  {
+                    this.state.monsterList.map(monster => {
+                      console.log("this ran!")
+                      return (
+                        <tr>
+                          <td key={monster.Name}>{monster.Name}</td>
+                          <td key={monster.Type}>{monster.Type}</td>
+                          <td key={monster.Size}>{monster.Size}</td>
+                          <td key={monster.AC}>{monster.AC}</td>
+                          <td key={monster.HP}>{monster.HP}</td>
+                          <td key={monster.Speeds}>{monster.Speeds}</td>
+                          <td key={monster.STR}>{monster.STR}</td>
+                          <td key={monster.DEX}>{monster.DEX}</td>
+                          <td key={monster.CON}>{monster.CON}</td>
+                          <td key={monster.INT}>{monster.INT}</td>
+                          <td key={monster.WIS}>{monster.WIS}</td>
+                          <td key={monster.CHA}>{monster.CHA}</td>
+                          <td key={monster.SavThrows}>{monster.SavThrows}</td>
+                          <td key={monster.Skills}>{monster.Skills}</td>
+                          <td key={monster.Sense}>{monster.Sense}</td>
+                          <td key={monster.CR}>{monster.CR}</td>
+                        </tr>
+                      )
+                    })
+
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
+        <br /><br />
       </React.Fragment>
     )
   }

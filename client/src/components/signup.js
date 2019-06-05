@@ -1,7 +1,7 @@
 import React from 'react';
 import { registerUser } from "../utils/API"
 
-class signUp extends React.Component {
+class SignUp extends React.Component {
 
   state = {
     firstName: "",
@@ -42,29 +42,31 @@ class signUp extends React.Component {
 
   render() {
     return (
-      <div className="tab-pane" id="signup" role="tabpanel">
+      <div className="tab-content my-4">
+        <div className="tab-pane" id="signup" role="tabpanel">
         <form id="signup-form">
           <div className="form-group">
-            <label htmlfor="first-name-input">First Name</label>
+            <label htmlFor="first-name-input">First Name</label>
             <input type="text" id="first-name-input" className="form-control" value={this.state.firstName} name="firstName" onChange={this.handleInputChange} />
           </div>
           <div className="form-group">
-            <label htmlfor="last-name-input">Last Name</label>
+            <label htmlFor="last-name-input">Last Name</label>
             <input type="text" id="last-name-input" className="form-control" value={this.state.lastName} name="lastName" onChange={this.handleInputChange} />
           </div>
           <div className="form-group">
-            <label htmlfor="email-input">Email</label>
+            <label htmlFor="email-input">Email</label>
             <input type="text" id="email-input" className="form-control" value={this.state.email} name="email" onChange={this.handleInputChange} />
           </div>
           <div className="form-group">
-            <label htmlfor="password-input">password</label>
+            <label htmlFor="password-input">password</label>
             <input type="password" id="password-input" className="form-control" value={this.state.password} name="password" onChange={this.handleInputChange} />
           </div>
           <button type="submit" className="btn btn-block btn-success" onClick={this.handleFormSubmit} >Sign Up!</button>
         </form>
       </div>
+      </div>
     );
   };
 };
 
-export default signUp;
+export default SignUp;

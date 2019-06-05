@@ -33,7 +33,8 @@ class login extends React.Component {
     loginUser(userData)
       .then(accessToken =>{
         console.log(accessToken);
-        localStorage.setItem("accessToken", accessToken);
+        console.log(accessToken.data);
+        localStorage.setItem("accessToken", accessToken.data);
         this.handleGetUserInfo();
       })
       .catch(err => console.log(err))

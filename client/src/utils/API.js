@@ -23,12 +23,15 @@ export const updateParty = (partyId, partyData) =>{
 };
 
 // expect query to look like {id: 1} or {size: "big"}
-export const findMonster = (query) => {
-  return axios.get('/api/monsters', {
-    params: query
-  });
+export const findMonsterByName = monsterName => {
+  return axios.get(`/api/monster/name/${monsterName}`);
 };
 
 export const findMonsterById = monsterId => {
-  return axios.get(`/api/monster/${monsterId}`);
+  return axios.get(`/api/monster/id/${monsterId}`);
 };
+
+export const findMonsterByCr = monsterCr => {
+  return axios.get(`/api/monster/cr/${monsterCr}`);
+};
+

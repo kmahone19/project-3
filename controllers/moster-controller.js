@@ -1,9 +1,25 @@
 const { Monsters } = require('../models');
+var Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
-// req.query => {id : 1} or {cr: ""}
-const getMonster = (req, res) => {
+
+const getMonsterByName = (req, res) => {
   Monsters.findAll({
-    where: req.query
+    where: {
+      Name: {
+        [Op.like]: req.params.Name
+      }
+    }
+  })
+  .then(monsterData => res.json(monsterData))
+  .catch(err => res.json(err))
+};
+
+const getMonsterByCr = (req, res) => {
+  Monsters.findAll({
+    where: {
+      CR: req.params.Cr
+    }
   })
   .then(monsterData => res.json(monsterData))
   .catch(err => res.json(err))
@@ -21,5 +37,6 @@ const getMonsterById = (req, res) => {
 
 module.exports = {
   getMonsterById,
-  getMonster
+  getMonsterByName,
+  getMonsterByCr
 }
