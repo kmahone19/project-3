@@ -43,7 +43,7 @@ class SignUp extends React.Component {
   render() {
     return (
       <div className="tab-content my-4">
-        <div className="tab-pane" id="signup" role="tabpanel">
+        <div className="tab-pane active" id="signup" role="tabpanel">
         <form id="signup-form">
           <div className="form-group">
             <label htmlFor="first-name-input">First Name</label>
