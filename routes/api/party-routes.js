@@ -9,10 +9,10 @@ router
 
 router
   .route("/register")
-  .post(newParty);
+  .post(newParty, withAuth);
 
 router
   .route("/update/:id")
-  .put(updatePartyInfo)
+  .put(updatePartyInfo, withAuth)
 
 module.exports = router;

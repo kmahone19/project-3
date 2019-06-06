@@ -4,12 +4,13 @@ import Row from "../components/row";
 import { findMonsterByName, findMonsterById, findMonsterByCr } from '../utils/API';
 import UserAuth from "../components/userAuth";
 
+
 class Search extends React.Component {
 
   state = {
     searchTerm: "",
     monsterList: [],
-    Cr: 0
+    Cr: 0,
   };
 
 
@@ -44,17 +45,27 @@ class Search extends React.Component {
 
   handleNameSearch = () =>{
     findMonsterByName(this.state.searchTerm)
-      .then(monsterData => console.log(monsterData))
+      .then(monsterData => {
+        console.log(monsterData.data)
+        this.setState({
+          monsterList: monsterData.data
+        })
+        console.log(this.monstertList)})
       .catch(err => console.log(err))
   }
   handleCrSearch = () =>{
     findMonsterByCr(this.state.Cr)
-      .then(monsterData => console.log(monsterData))
+      .then(monsterData =>{
+        console.log(monsterData.data)
+        const monsterArr = monsterData.data
+        this.setState({
+          monsterList: monsterArr
+        })
+      })
       .catch(err => console.log(err));
   }
 
   render() {
-
     return (
       <React.Fragment>
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Search for your next grudge match!"} />
@@ -78,7 +89,7 @@ class Search extends React.Component {
                 </form>
               </div>
             </div>
-            <UserAuth />
+           <UserAuth />
           </Row>
 
           <div className="card p-0 col-12 mt-2">
@@ -105,31 +116,30 @@ class Search extends React.Component {
                     <th className="m-1" scope="col"> CR </th>
                   </tr>
 
-                  {
+                  { this.state.monsterList.length ? (
                     this.state.monsterList.map(monster => {
-                      console.log("this ran!")
                       return (
-                        <tr>
-                          <td key={monster.Name}>{monster.Name}</td>
-                          <td key={monster.Type}>{monster.Type}</td>
-                          <td key={monster.Size}>{monster.Size}</td>
-                          <td key={monster.AC}>{monster.AC}</td>
-                          <td key={monster.HP}>{monster.HP}</td>
-                          <td key={monster.Speeds}>{monster.Speeds}</td>
-                          <td key={monster.STR}>{monster.STR}</td>
-                          <td key={monster.DEX}>{monster.DEX}</td>
-                          <td key={monster.CON}>{monster.CON}</td>
-                          <td key={monster.INT}>{monster.INT}</td>
-                          <td key={monster.WIS}>{monster.WIS}</td>
-                          <td key={monster.CHA}>{monster.CHA}</td>
-                          <td key={monster.SavThrows}>{monster.SavThrows}</td>
-                          <td key={monster.Skills}>{monster.Skills}</td>
-                          <td key={monster.Sense}>{monster.Sense}</td>
-                          <td key={monster.CR}>{monster.CR}</td>
+                        <tr key={monster.Name}>
+                          <td>{monster.Name}</td>
+                          <td>{monster.Type}</td>
+                          <td>{monster.Size}</td>
+                          <td>{monster.AC}</td>
+                          <td>{monster.HP}</td>
+                          <td>{monster.Speeds}</td>
+                          <td>{monster.STR}</td>
+                          <td>{monster.DEX}</td>
+                          <td>{monster.CON}</td>
+                          <td>{monster.INT}</td>
+                          <td>{monster.WIS}</td>
+                          <td>{monster.CHA}</td>
+                          <td>{monster.SavThrows}</td>
+                          <td>{monster.Skills}</td>
+                          <td>{monster.Sense}</td>
+                          <td>{monster.CR}</td>
                         </tr>
                       )
                     })
-
+                  ) : ""
                   }
                 </tbody>
               </table>

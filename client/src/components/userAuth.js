@@ -29,7 +29,7 @@ function UserAuth() {
                 onClick={() => handleSetActiveForm("signup")}>Sign
                 Up!</button>
             </div>
-            <div className="tab-content my-4" id="forms">
+            <div className="my-4">
 
               {activeForm === "login" ? (
                 <Login activeForm={activeForm} />

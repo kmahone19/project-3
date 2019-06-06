@@ -1,12 +1,15 @@
 import React from 'react';
 import { loginUser, getUserInfo } from "../utils/API";
+import UserInfo from "../components/userInfo"
 
 class login extends React.Component {
 
   state = {
     email: "",
     password: "",
-    token: ""
+    token: "",
+    showUserInfo: false,
+    showloggedin: true
   }
 
   handleInputChange = event => {
@@ -24,6 +27,11 @@ class login extends React.Component {
       password: this.state.password
     };
 
+    this.setState({
+      showUserInfo: true
+    })
+
+  
     if(!this.state.email || !this.state.password){
       return alert("Looks like you forgot something, Please Try Again!")
     }
@@ -32,17 +40,18 @@ class login extends React.Component {
     
     loginUser(userData)
       .then(accessToken =>{
-        console.log(accessToken);
         console.log(accessToken.data);
         localStorage.setItem("accessToken", accessToken.data);
         this.handleGetUserInfo();
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   handleGetUserInfo = ()=>{
     const token = localStorage.getItem("accessToken");
-    getUserInfo(token);
+    getUserInfo(token)
+      .then(userData => console.log(userData))
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -61,7 +70,10 @@ class login extends React.Component {
             <button type="submit" className="btn btn-block btn-success" onClick={this.handleFormSubmit} >Login!</button>
           </form>
         </div>
+        {this.state.showUserInfo ? 
+          <UserInfo /> : null}
       </div>
+
     );
   };
 };

@@ -5,22 +5,14 @@ import { getPartyInfo, addParty, updateParty } from "../utils/API";
 import UserAuth from "../components/userAuth";
 
 
-const lvlArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 class create extends React.Component {
 
   state = {
-    lvls: lvlArr,
     partyName: "",
     partylvl: "",
     parties: []
   }
-
-  componentDidMount() {
-    getPartyInfo()
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
-  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -32,45 +24,40 @@ class create extends React.Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    const token = localStorage.getItem("accessToken");
+    console.log(this.state.partyName);
+    console.log(this.state.partylvl)
 
-    if (!token) {
-      return alert("you must be logged in!")
-    } else {
+    const partyData = {
+      party_name: this.state.partyName,
+      party_lvl: this.state.partylvl
+    };
+    console.log(partyData)
+    addParty(partyData)
+      .then(partyData => {
+        console.log(partyData)
+      })
+      .catch(err => console.log(err));
 
-      const partyData = {
-        party_name: this.state.partyName,
-        party_lvl: this.state.partylvl
-      };
+    getPartyInfo()
+      .then(partyData => console.log(partyData.data))
+      .catch(err => console.log(err));
 
-      addParty(partyData)
-        .then(partyData => {
-          console.log(partyData)
-        })
-        .catch(err => console.log(err));
-    }
   }
 
   handleUpdateParty = event => {
     event.preventDefault();
 
-    const token = localStorage.getItem("accessToken");
+    const partyData = {
+      party_name: this.state.partyName,
+      party_lvl: this.state.partylvl
+    };
+    console.log(partyData)
 
-    if (!token) {
-      return alert("you must be logged in!")
-    } else {
-
-      const partyData = {
-        party_name: this.state.partyName,
-        party_lvl: this.state.partylvl
-      };
-
-      updateParty(partyData)
-        .then(partyData => {
-          console.log(partyData);
-        })
-        .catch(err => console.log(err));
-    }
+    updateParty(partyData)
+      .then(partyData => {
+        console.log(partyData);
+      })
+      .catch(err => console.log(err));
   }
   render() {
 
@@ -87,38 +74,35 @@ class create extends React.Component {
                   <div className="row  justify-content">
                     <div className="col-8 m-2">
                       <label htmlFor="party-name"> Party Name</label>
-                      <input type="text" className="form-control" placeholder="Party Name" onChange={this.handleInputChange} />
+                      <input type="text" className="form-control" id="party-name" placeholder="Name your party!" value={this.state.partyName} name="partyName" onChange={this.handleInputChange} />
                     </div>
                     <div className="col-8 m-1">
-                      <select >
-                        <option defaultValue value={this.state.selType} name="selType" onChange={this.handleInputChange}> Select average party level</option>
-                        {
-                          this.state.lvls.map(lvl => {
-                            return (
-                              <option value={lvl} key={lvl}>{lvl}</option>
-                            )
-                          })
-                        }
-                      </select>
+                      <label htmlFor="lvl-input"> Average Party Level</label>
+                      <input type="number" className="form-control" id="lvl-input" placeholder="Average party level" value={this.state.partylvl} name="partylvl" onChange={this.handleInputChange} />
                     </div>
-                    <button type="button" id="flight-status-submit" className="btn btn-primary col-4 ml-3">Submit</button>
+                    <button type="button" id="flight-status-submit" className="btn btn-primary col-4 ml-3" onClick={this.handleFormSubmit}>Submit</button>
                   </div>
                 </form>
               </div>
             </div>
             <UserAuth />
           </Row>
-          {/* <Row>
-            <div className="col-md-8 col-12 card">
-              {
-                this.state.parties.map(party =>{
-                  <div className="card-body" key={party.party_name}>{party}</div>
-                })
-              }
+          <Row>
+            <div className="col-md-8 p-0 col-12 card">
+              <h2 className="card-header">Your Parties!</h2>
+              <div className="card-body">
+                {
+                  this.state.parties.map(party => {
+                    return (
+                      <div key={party.party_name}>{party}</div>
+                    )
+                  })
+                }
+              </div>
             </div>
-          </Row> */}
+          </Row>
         </div>
-
+        <br /><br />
       </React.Fragment>
     )
   }

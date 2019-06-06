@@ -28,7 +28,7 @@ const withAuth = (req, res, next) => {
         });
       } else {
         req.email = decoded.email;
-        req.id = decoded.id;
+        req._id = decoded.id;
         next();
       }
     });

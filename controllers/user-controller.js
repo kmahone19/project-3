@@ -24,7 +24,7 @@ const register = (req, res) =>{
 
 const login = async (req, res) => {
 
-  console.log("this works")
+
   const { email, password } = req.body;
 
   const [findUserErr, userInfo] = await handle(User.findOne({ where: {email} }));
