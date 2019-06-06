@@ -27,8 +27,9 @@ const withAuth = (req, res, next) => {
           message: "Unauthorized: Invalid token"
         });
       } else {
+        console.log("DECODED USER", decoded.id, decoded.email);
         req.email = decoded.email;
-        req._id = decoded.id;
+        req.id = decoded.id;
         next();
       }
     });

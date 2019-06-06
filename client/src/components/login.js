@@ -48,8 +48,8 @@ class login extends React.Component {
   }
 
   handleGetUserInfo = ()=>{
-    const token = localStorage.getItem("accessToken");
-    getUserInfo(token)
+    
+    getUserInfo()
       .then(userData => console.log(userData))
       .catch(err => console.log(err))
   }

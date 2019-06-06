@@ -46,6 +46,7 @@ const login = async (req, res) => {
         error:"Password Incorrect"
       });
     } else {
+      console.log("USER INFO", userInfo.id, userInfo.email)
       const payload = {
         id: userInfo.id,
         email: userInfo.email
@@ -59,7 +60,8 @@ const login = async (req, res) => {
 };
 
 const getUserProfile = async (req, res) => {
-  const [userErr, userProfile] = await handle(User.findOne({id: req.id}));
+  console.log(req.id);
+  const [userErr, userProfile] = await handle(User.findOne({where: {id: req.id}}));
 
   if(userErr){
     res.status(500).json(userErr);

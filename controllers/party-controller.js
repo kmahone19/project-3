@@ -7,7 +7,8 @@ const newParty = (req,res) => {
 
   Party.create({
     party_name,
-    party_lvl
+    party_lvl,
+    UserId: req.id
   })
   .then(dbPartydata => res.json(dbPartydata))
   .catch(err => {
@@ -20,7 +21,7 @@ const getPartyInfo = (req,res) => {
 
   Party.findAll({
     where: {
-      id: req.params.id
+      UserId: req.id
     }
   })
   .then(dbPartydata => res.json(dbPartydata))
