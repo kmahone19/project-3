@@ -18,8 +18,8 @@ export const addParty = partyData =>{
   return axios.post("/api/party/register", partyData);
 };
 
-export const updateParty = (partyId, partyData) =>{
-  return axios.put(`/api/party/update/${partyId}`, partyData);
+export const deleteParty = partyId =>{
+  return axios.delete(`/api/party/delete/${partyId}`);
 };
 
 // expect query to look like {id: 1} or {size: "big"}

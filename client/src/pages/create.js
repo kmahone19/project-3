@@ -1,7 +1,7 @@
 import React from 'react';
 import Jumbotron from "../components/jumbotron";
 import Row from "../components/row";
-import { getPartyInfo, addParty, updateParty } from "../utils/API";
+import { getPartyInfo, addParty, deleteParty  } from "../utils/API";
 import UserAuth from "../components/userAuth";
 
 
@@ -12,6 +12,19 @@ class create extends React.Component {
     partyName: "",
     partylvl: "",
     parties: []
+  }
+
+  componentDidMount(){
+    getPartyInfo()
+      .then(partyData => {
+        console.log(partyData.data)
+        this.setState({
+          parties: partyData.data
+        })
+        console.log(this.state.parties)
+      })
+      .catch(err => console.log(err));
+
   }
 
   handleInputChange = event => {
@@ -39,26 +52,26 @@ class create extends React.Component {
       .catch(err => console.log(err));
 
     getPartyInfo()
-      .then(partyData => console.log(partyData.data))
-      .catch(err => console.log(err));
-
-  }
-
-  handleUpdateParty = event => {
-    event.preventDefault();
-
-    const partyData = {
-      party_name: this.state.partyName,
-      party_lvl: this.state.partylvl
-    };
-    console.log(partyData)
-
-    updateParty(partyData)
       .then(partyData => {
-        console.log(partyData);
+        console.log(partyData.data)
+        this.setState({
+          parties: partyData.data[0]
+        })
       })
       .catch(err => console.log(err));
   }
+
+  handleDeleteParty = event =>{
+    event.preventDefault();
+
+    const { id } = event.target;
+    console.log(id)
+    deleteParty(id)
+      .then(partyData => {console.log(partyData)
+      console.log("this ran")})
+      .catch(err => console.log(err));
+  }
+
   render() {
 
 
@@ -90,11 +103,15 @@ class create extends React.Component {
           <Row>
             <div className="col-md-8 p-0 col-12 card">
               <h2 className="card-header">Your Parties!</h2>
-              <div className="card-body">
+              <div className="card-body text-center">
                 {
                   this.state.parties.map(party => {
                     return (
-                      <div key={party.party_name}>{party}</div>
+                      <div key={party.party_name} className="display-4">
+                        <strong>{party.party_name}</strong> || Average party level <strong>{party.party_lvl}</strong> <button className="btn btn-sm btn-danger" id={party.id}
+                        onClick={this.handleDeleteParty}>X</button>
+                        <hr/>
+                      </div>
                     )
                   })
                 }

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const withAuth = require('../../middleware/authentication');
 
-const { getPartyInfo, newParty, updatePartyInfo } = require("../../controllers/party-controller");
+const { getPartyInfo, newParty, deletePartyInfo } = require("../../controllers/party-controller");
 
 router
   .route("/")
@@ -9,10 +9,10 @@ router
 
 router
   .route("/register")
-  .post(newParty, withAuth);
+  .post(withAuth, newParty);
 
 router
-  .route("/update/:id")
-  .put(updatePartyInfo, withAuth)
+  .route("/delete/:id")
+  .put(withAuth, deletePartyInfo)
 
 module.exports = router;

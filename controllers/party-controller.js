@@ -31,11 +31,8 @@ const getPartyInfo = (req,res) => {
   });
 };
 
-const updatePartyInfo = async (req, res) => {
-  Party.update({
-    party_name: req.body.party_name,
-    party_lvl: req.body.party_lvl
-  },
+const deletePartyInfo = async (req, res) => {
+  Party.destroy(
     {
     where: req.params.id
   })
@@ -49,5 +46,5 @@ const updatePartyInfo = async (req, res) => {
 module.exports = {
   newParty,
   getPartyInfo,
-  updatePartyInfo
+  deletePartyInfo
 }
