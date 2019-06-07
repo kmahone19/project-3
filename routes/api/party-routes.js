@@ -13,6 +13,6 @@ router
 
 router
   .route("/delete/:id")
-  .put(withAuth, deletePartyInfo)
+  .delete(withAuth, deletePartyInfo)
 
 module.exports = router;

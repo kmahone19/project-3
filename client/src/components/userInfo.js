@@ -3,6 +3,10 @@ import { getPartyInfo } from "../utils/API"
 
 class userInfo extends React.Component {
 
+  state ={
+    parties: []
+  }
+
   handleLogOut = event => {
     event.preventDefault();
 
@@ -16,12 +20,15 @@ class userInfo extends React.Component {
     if (!token) {
       return alert("You must be logged in!")
     }
-
     getPartyInfo()
-      .then(partyData => {
-        console.log(partyData);
-
+    .then(partyData => {
+      console.log(partyData.data)
+      window.location.reload()
+      this.setState({
+        parties: partyData.data
       })
+    })
+    .catch(err => console.log(err));
   }
 
   render() {

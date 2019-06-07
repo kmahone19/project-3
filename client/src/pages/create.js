@@ -54,8 +54,9 @@ class create extends React.Component {
     getPartyInfo()
       .then(partyData => {
         console.log(partyData.data)
+        window.location.reload()
         this.setState({
-          parties: partyData.data[0]
+          parties: partyData.data
         })
       })
       .catch(err => console.log(err));
@@ -65,10 +66,11 @@ class create extends React.Component {
     event.preventDefault();
 
     const { id } = event.target;
-    console.log(id)
+    
     deleteParty(id)
-      .then(partyData => {console.log(partyData)
-      console.log("this ran")})
+      .then(partyData => {console.log(partyData);
+        window.location.reload()
+      })
       .catch(err => console.log(err));
   }
 
