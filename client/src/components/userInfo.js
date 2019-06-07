@@ -1,10 +1,22 @@
 import React from 'react';
-import { getPartyInfo } from "../utils/API"
+import { getPartyInfo, getUserInfo } from "../utils/API"
 
 class userInfo extends React.Component {
 
-  state ={
-    parties: []
+  state = {
+    parties: [],
+    UserInfo: []
+  }
+
+  componentDidMount() {
+    getUserInfo()
+      .then(userData => {
+        console.log(userData.data)
+        this.setState({
+          UserInfo: userData.data
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   handleLogOut = event => {
@@ -12,6 +24,7 @@ class userInfo extends React.Component {
 
     localStorage.removeItem("accessToken");
 
+    window.location.reload();
   }
 
   handlePartyInfo = () => {
@@ -21,14 +34,13 @@ class userInfo extends React.Component {
       return alert("You must be logged in!")
     }
     getPartyInfo()
-    .then(partyData => {
-      console.log(partyData.data)
-      window.location.reload()
-      this.setState({
-        parties: partyData.data
+      .then(partyData => {
+        this.setState({
+          parties: partyData.data
+        })
+        console.log(this.state.parties)
       })
-    })
-    .catch(err => console.log(err));
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -36,11 +48,22 @@ class userInfo extends React.Component {
 
       <div className="col-12 col-md-4">
         <div id="user-info" className="border p-2 rounded">
-          <h3 id="full-name" className="font-weight-bold"></h3>
+          <h3 id="full-name" className="font-weight-bold">{this.state.UserInfo.firstName}{this.state.UserInfo.lastName}</h3>
           <div className="card-body">
             <button id="party-btn" className="btn btn-block btn-info" onClick={this.handlePartyInfo}>Show Your Parties!</button>
             <button id="logout" className="btn btn-block btn-warning" onClick={this.handleLogOut} > logout</button>
-            <div id="parties"></div>
+            <div className="mt-3">
+              {
+                this.state.parties.length ?
+                  (
+                    this.state.parties.map(party => {
+                      return (
+                        <button className="btn btn-outline-danger" id={party.party_lvl} key={party.party_name} >{party.party_name}</button>
+                      )
+                    })
+                  ) : ""
+              }
+            </div>
           </div>
         </div>
       </div>

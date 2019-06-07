@@ -1,6 +1,6 @@
 import React from 'react';
 import { loginUser, getUserInfo } from "../utils/API";
-import UserInfo from "../components/userInfo"
+
 
 class login extends React.Component {
 
@@ -8,8 +8,6 @@ class login extends React.Component {
     email: "",
     password: "",
     token: "",
-    showUserInfo: false,
-    showloggedin: true
   }
 
   handleInputChange = event => {
@@ -19,36 +17,30 @@ class login extends React.Component {
     });
   };
 
-  handleFormSubmit = event =>{
+  handleFormSubmit = event => {
     event.preventDefault();
 
-    const userData= {
+    const userData = {
       email: this.state.email,
       password: this.state.password
     };
 
-    this.setState({
-      showUserInfo: true
-    })
-
-  
-    if(!this.state.email || !this.state.password){
+    if (!this.state.email || !this.state.password) {
       return alert("Looks like you forgot something, Please Try Again!")
     }
 
-    console.log(userData);
-    
     loginUser(userData)
-      .then(accessToken =>{
+      .then(accessToken => {
         console.log(accessToken.data);
         localStorage.setItem("accessToken", accessToken.data);
         this.handleGetUserInfo();
       })
       .catch(err => console.log(err));
+
   }
 
-  handleGetUserInfo = ()=>{
-    
+  handleGetUserInfo = () => {
+
     getUserInfo()
       .then(userData => console.log(userData))
       .catch(err => console.log(err))
@@ -70,8 +62,6 @@ class login extends React.Component {
             <button type="submit" className="btn btn-block btn-success" onClick={this.handleFormSubmit} >Login!</button>
           </form>
         </div>
-        {this.state.showUserInfo ? 
-          <UserInfo /> : null}
       </div>
 
     );

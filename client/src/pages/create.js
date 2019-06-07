@@ -1,7 +1,7 @@
 import React from 'react';
 import Jumbotron from "../components/jumbotron";
 import Row from "../components/row";
-import { getPartyInfo, addParty, deleteParty  } from "../utils/API";
+import { getPartyInfo, addParty, deleteParty } from "../utils/API";
 import UserAuth from "../components/userAuth";
 
 
@@ -14,7 +14,7 @@ class create extends React.Component {
     parties: []
   }
 
-  componentDidMount(){
+  componentDidMount() {
     getPartyInfo()
       .then(partyData => {
         console.log(partyData.data)
@@ -24,8 +24,8 @@ class create extends React.Component {
         console.log(this.state.parties)
       })
       .catch(err => console.log(err));
-
-  }
+      
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -53,8 +53,6 @@ class create extends React.Component {
 
     getPartyInfo()
       .then(partyData => {
-        console.log(partyData.data)
-        window.location.reload()
         this.setState({
           parties: partyData.data
         })
@@ -62,13 +60,14 @@ class create extends React.Component {
       .catch(err => console.log(err));
   }
 
-  handleDeleteParty = event =>{
+  handleDeleteParty = event => {
     event.preventDefault();
 
     const { id } = event.target;
-    
+
     deleteParty(id)
-      .then(partyData => {console.log(partyData);
+      .then(partyData => {
+        console.log(partyData);
         window.location.reload()
       })
       .catch(err => console.log(err));
@@ -106,16 +105,16 @@ class create extends React.Component {
             <div className="col-md-8 p-0 col-12 card">
               <h2 className="card-header">Your Parties!</h2>
               <div className="card-body text-center">
-                {
-                  this.state.parties.map(party => {
+                {this.state.parties.length ?
+                  (this.state.parties.map(party => {
                     return (
                       <div key={party.party_name} className="display-4">
                         <strong>{party.party_name}</strong> || Average party level <strong>{party.party_lvl}</strong> <button className="btn btn-sm btn-danger" id={party.id}
-                        onClick={this.handleDeleteParty}>X</button>
-                        <hr/>
+                          onClick={this.handleDeleteParty}>X</button>
+                        <hr />
                       </div>
                     )
-                  })
+                  })) : ""
                 }
               </div>
             </div>
