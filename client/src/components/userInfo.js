@@ -3,6 +3,7 @@ import { getPartyInfo, getUserInfo } from "../utils/API"
 
 class userInfo extends React.Component {
 
+  
   state = {
     parties: [],
     UserInfo: []
@@ -44,21 +45,22 @@ class userInfo extends React.Component {
   }
 
   render() {
+    
     return (
 
       <div className="col-12 col-md-4">
         <div id="user-info" className="border p-2 rounded">
           <h3 id="full-name" className="font-weight-bold">{this.state.UserInfo.firstName}{this.state.UserInfo.lastName}</h3>
           <div className="card-body">
-            <button id="party-btn" className="btn btn-block btn-info" onClick={this.handlePartyInfo}>Show Your Parties!</button>
-            <button id="logout" className="btn btn-block btn-warning" onClick={this.handleLogOut} > logout</button>
+            <button id="party-btn" className="btn btn-block btn-secondary" onClick={this.handlePartyInfo}>Show Your Parties!</button>
+            <button id="logout" className="btn btn-block btn-danger" onClick={this.handleLogOut} > logout</button>
             <div className="mt-3">
               {
                 this.state.parties.length ?
                   (
                     this.state.parties.map(party => {
                       return (
-                        <button className="btn btn-outline-danger" id={party.party_lvl} key={party.party_name} >{party.party_name}</button>
+                        <button className="btn btn-outline-danger m-1" id={party.party_lvl} key={party.party_name} onClick={this.props.handlePartyButton} >{party.party_name}</button>
                       )
                     })
                   ) : ""

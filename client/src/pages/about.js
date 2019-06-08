@@ -8,7 +8,7 @@ function about (){
      <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"About the Book!"} />
      <div className="container">
       <h1 className="display-3">About!</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio minus id veniam ipsa. Tempore nisi illum id in delectus qui consequatur magnam dolorem similique sint ex, inventore doloremque vitae amet! </p>
+      <p> Amon's book of grudges is a resourse for Dugeon Masters to quickly look up monsters and create encounters on the fly if need be. You can also create and save your parties and use there average party levels to get a recomendation for different monsters that would suit your party. Thank you to u/RufflesDmAccount for creating the Great D&D 5e Monster Spreadsheet. </p>
     </div>
    </React.Fragment>
   );

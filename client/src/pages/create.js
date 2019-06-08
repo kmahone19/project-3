@@ -3,6 +3,7 @@ import Jumbotron from "../components/jumbotron";
 import Row from "../components/row";
 import { getPartyInfo, addParty, deleteParty } from "../utils/API";
 import UserAuth from "../components/userAuth";
+import swal from "sweetalert";
 
 
 
@@ -12,7 +13,7 @@ class create extends React.Component {
     partyName: "",
     partylvl: "",
     parties: []
-  }
+  };
 
   componentDidMount() {
     getPartyInfo()
@@ -24,7 +25,12 @@ class create extends React.Component {
         console.log(this.state.parties)
       })
       .catch(err => console.log(err));
-      
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      this.setState({
+        parties: []
+      });
+    ;}
   };
 
   handleInputChange = event => {
@@ -38,27 +44,33 @@ class create extends React.Component {
     event.preventDefault();
 
     console.log(this.state.partyName);
-    console.log(this.state.partylvl)
+    console.log(this.state.partylvl);
+
+    const token = localStorage.getItem("accessToken")
 
     const partyData = {
       party_name: this.state.partyName,
       party_lvl: this.state.partylvl
     };
-    console.log(partyData)
-    addParty(partyData)
-      .then(partyData => {
-        console.log(partyData)
-      })
-      .catch(err => console.log(err));
-
-    getPartyInfo()
-      .then(partyData => {
-        this.setState({
-          parties: partyData.data
+    if (!token) {
+      swal("Warning!","you must be logged in!", "warning")
+    } else {
+      addParty(partyData)
+        .then(partyData => {
+          console.log(partyData)
         })
-      })
-      .catch(err => console.log(err));
+        .catch(err => console.log(err));
+
+      getPartyInfo()
+        .then(partyData => {
+          this.setState({
+            parties: partyData.data
+          })
+        })
+        .catch(err => console.log(err));
+    }
   }
+
 
   handleDeleteParty = event => {
     event.preventDefault();
@@ -74,7 +86,6 @@ class create extends React.Component {
   }
 
   render() {
-
 
     return (
       <React.Fragment>
@@ -94,7 +105,7 @@ class create extends React.Component {
                       <label htmlFor="lvl-input"> Average Party Level</label>
                       <input type="number" className="form-control" id="lvl-input" placeholder="Average party level" value={this.state.partylvl} name="partylvl" onChange={this.handleInputChange} />
                     </div>
-                    <button type="button" id="flight-status-submit" className="btn btn-primary col-4 ml-3" onClick={this.handleFormSubmit}>Submit</button>
+                    <button type="button" id="flight-status-submit" className="btn btn-secondary col-4 ml-3" onClick={this.handleFormSubmit}>Submit</button>
                   </div>
                 </form>
               </div>
@@ -123,6 +134,5 @@ class create extends React.Component {
         <br /><br />
       </React.Fragment>
     )
-  }
-}
-export default create
+  }}
+  export default create

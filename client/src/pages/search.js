@@ -36,26 +36,31 @@ class Search extends React.Component {
     event.preventDefault();
     console.log(this.state.searchTerm)
     console.log(this.state.Cr)
-    if(this.state.searchTerm){
+    if (this.state.searchTerm) {
       this.handleNameSearch();
-    } else{
+    } else {
       this.handleCrSearch();
     }
+    this.setState({
+      searchTerm:"",
+      Cr: 0
+    })
   };
 
-  handleNameSearch = () =>{
+  handleNameSearch = () => {
     findMonsterByName(this.state.searchTerm)
       .then(monsterData => {
         console.log(monsterData.data)
         this.setState({
           monsterList: monsterData.data
         })
-        console.log(this.monstertList)})
+        console.log(this.monstertList)
+      })
       .catch(err => console.log(err))
   }
-  handleCrSearch = () =>{
+  handleCrSearch = () => {
     findMonsterByCr(this.state.Cr)
-      .then(monsterData =>{
+      .then(monsterData => {
         console.log(monsterData.data)
         const monsterArr = monsterData.data
         this.setState({
@@ -65,11 +70,66 @@ class Search extends React.Component {
       .catch(err => console.log(err));
   }
 
+  handlePartyButton = event => {
+    const { id } = event.target;
+    console.log(id)
+    if (id <= 5) {
+      findMonsterByCr(.25)
+        .then(monsterData => {
+          console.log(monsterData.data)
+          const monsterArr = monsterData.data
+          this.setState({
+            monsterList: monsterArr
+          })
+        })
+        .catch(err => console.log(err));
+    } else if (id >= 6 && id <= 10) {
+      findMonsterByCr(1)
+        .then(monsterData => {
+          console.log(monsterData.data)
+          const monsterArr = monsterData.data
+          this.setState({
+            monsterList: monsterArr
+          })
+        })
+        .catch(err => console.log(err));
+    } else if (id >= 11 && id <= 15) {
+      findMonsterByCr(3)
+        .then(monsterData => {
+          console.log(monsterData.data)
+          const monsterArr = monsterData.data
+          this.setState({
+            monsterList: monsterArr
+          })
+        })
+        .catch(err => console.log(err));
+    } else if (id >= 16 && id <= 20) {
+      findMonsterByCr(4)
+        .then(monsterData => {
+          console.log(monsterData.data)
+          const monsterArr = monsterData.data
+          this.setState({
+            monsterList: monsterArr
+          })
+        })
+        .catch(err => console.log(err));
+    }
+  }
+
   render() {
+    const imgUrl="../../public/images/paper.jpg"
+    const style ={
+      bg:{
+        backgroundImage: 'url(' + imgUrl + ')',
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover"
+      }
+    }
     return (
       <React.Fragment>
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Search for your next grudge match!"} />
-        <div className="container">
+        <div className="container" style={style.bg}>
           <Row>
             <div className="card col-12 col-md-8 p-0">
               <h2 className="card-header"> Search for a Monster!</h2>
@@ -77,24 +137,24 @@ class Search extends React.Component {
                 <form>
                   <div className="row">
                     <div className="col-6 m-2">
-                    <label htmlFor="monster-search">Search</label>
+                      <label htmlFor="monster-search">Search</label>
                       <input type="text" className="form-control" placeholder="search a monster" id="moster-search" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
                     </div>
                     <div className="col-5 m-2">
-                    <label htmlFor="cr-search">Challenge Rating</label>
+                      <label htmlFor="cr-search">Challenge Rating</label>
                       <input type="number" className="form-control" id="cr-search" placeholder="search a Challenge Rating" value={this.state.Cr} name="Cr" onChange={this.handleInputChange} />
                     </div>
-                    <button type="button" id="flight-status-submit" className="btn btn-primary col-md-8 ml-3" onClick={this.handleFormSubmit} >Submit</button>
+                    <button type="button" id="flight-status-submit" className="btn btn-secondary col-md-8 ml-3" onClick={this.handleFormSubmit} >Submit</button>
                   </div>
                 </form>
               </div>
             </div>
-           <UserAuth />
+            <UserAuth handlePartyButton={this.handlePartyButton} />
           </Row>
 
           <div className="card p-0 col-12 mt-2">
             <h2 className="card-header text-center col-12">Monsters</h2>
-            <div className="card-body">
+            <div className="card-body text-center">
               <table className="col-12">
                 <tbody>
                   <tr>
@@ -116,7 +176,7 @@ class Search extends React.Component {
                     <th className="m-1" scope="col"> CR </th>
                   </tr>
 
-                  { this.state.monsterList.length ? (
+                  {this.state.monsterList.length ? (
                     this.state.monsterList.map(monster => {
                       return (
                         <tr key={monster.Name}>

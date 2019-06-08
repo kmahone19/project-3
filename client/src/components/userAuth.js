@@ -5,9 +5,10 @@ import UserInfo from "../components/userInfo"
 
 
 
-function UserAuth() {
 
+function UserAuth(props) {
 
+  
   const [activeForm, setActiveForm] = useState("signup");
 
   function handleSetActiveForm(formName) {
@@ -27,7 +28,7 @@ function UserAuth() {
     }
   }
 
-
+  
   return (
     <React.Fragment>
       {
@@ -59,7 +60,7 @@ function UserAuth() {
               </div>
             </div>
 
-          </div>): <UserInfo />
+          </div>): <UserInfo handlePartyButton={props.handlePartyButton}/>
     }
     </React.Fragment>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { loginUser, getUserInfo } from "../utils/API";
+import swal from "sweetalert";
 
 
 class login extends React.Component {
@@ -26,7 +27,7 @@ class login extends React.Component {
     };
 
     if (!this.state.email || !this.state.password) {
-      return alert("Looks like you forgot something, Please Try Again!")
+      swal("Uh Oh!","Looks like you forgot something, Please Try Again!", "Warning")
     }
 
     loginUser(userData)
@@ -34,6 +35,7 @@ class login extends React.Component {
         console.log(accessToken.data);
         localStorage.setItem("accessToken", accessToken.data);
         this.handleGetUserInfo();
+        swal("Success","Your all good to start adding parties", "success")
       })
       .catch(err => console.log(err));
 
