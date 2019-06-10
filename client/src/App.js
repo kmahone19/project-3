@@ -6,9 +6,18 @@ import About from "./pages/about";
 import NavTabs from "./components/navbar"
 
 function App() {
+  const imgUrl = "images/paper.jpg"
+  const style = {
+    bg: {
+      backgroundImage: 'url(' + imgUrl + ')',
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover"
+    }
+  }
   return (
     <Router>
-    <div>
+    <div style={style.bg}>
       <NavTabs />
       <Route exact path="/" component={Search} />
       <Route exact path="/search" component={Search} />

@@ -27,7 +27,7 @@ class login extends React.Component {
     };
 
     if (!this.state.email || !this.state.password) {
-      swal("Uh Oh!","Looks like you forgot something, Please Try Again!", "Warning")
+      swal("Uh Oh!", "Looks like you forgot something, Please Try Again!", "Warning")
     }
 
     loginUser(userData)
@@ -35,10 +35,10 @@ class login extends React.Component {
         console.log(accessToken.data);
         localStorage.setItem("accessToken", accessToken.data);
         this.handleGetUserInfo();
-        swal("Success","Your all good to start adding parties", "success")
+        swal("Success", "Your all good to start adding parties", "success")
       })
       .catch(err => console.log(err));
-
+    
   }
 
   handleGetUserInfo = () => {
@@ -65,7 +65,6 @@ class login extends React.Component {
           </form>
         </div>
       </div>
-
     );
   };
 };

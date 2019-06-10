@@ -8,12 +8,17 @@ import UserInfo from "../components/userInfo"
 
 function UserAuth(props) {
 
-  
+  const style= {
+    bgOp:{
+      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    }
+  };
+
   const [activeForm, setActiveForm] = useState("signup");
 
   function handleSetActiveForm(formName) {
     setActiveForm(formName);
-  }
+  };
 
   const [isLogedIn, setActiveScreen] = useState("no");
 
@@ -30,11 +35,11 @@ function UserAuth(props) {
 
   
   return (
-    <React.Fragment>
+    <React.Fragment >
       {
         isLogedIn === "no" ?
-          (<div className="col-12 col-md-4">
-            <div className="border p-2 rounded" >
+          (<div className="col-12 col-md-4 p-1" style={style.bgOp}>
+            <div  className="border p-2 rounded" >
               <h3 id="right-column-title" className="text-center">Login/Sign Up!</h3>
               <div>
                 <div className="list-group list-group-horizontal-md mt-3" id="user-tabs" role="tablist">

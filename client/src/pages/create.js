@@ -86,13 +86,18 @@ class create extends React.Component {
   }
 
   render() {
+    const style= {
+      bgOp:{
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      }
+    };
 
     return (
       <React.Fragment>
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Create A Party!"} />
         <div className="container">
           <Row>
-            <div className="card col-12 col-md-8 p-0">
+            <div style={style.bgOp} className="card col-12 col-md-8 p-0">
               <h2 className="card-header">Create Your Party!</h2>
               <div className="card-body">
                 <form>
@@ -113,7 +118,7 @@ class create extends React.Component {
             <UserAuth />
           </Row>
           <Row>
-            <div className="col-md-8 p-0 col-12 card">
+            <div className="col-md-8 p-0 col-12 card" style={style.bgOp}>
               <h2 className="card-header">Your Parties!</h2>
               <div className="card-body text-center">
                 {this.state.parties.length ?

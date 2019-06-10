@@ -2,17 +2,18 @@ import React from 'react';
 
 
 function Jumbotron(props) {
-  const imgUrl = "../../public/images/DD.png"
+  const imgUrl = "images/DD.png"
   const style = {
     bgImg: {
       backgroundImage: 'url(' + imgUrl + ')',
-      backgroundPosition: "center",
+      backgroundPosition: "center center",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover"
     }
   }
   return (
     <div
+      style={style.bgImg}
       className={`
         jumbotron
         ${props.fluid ? 'jumbotron-fluid' : ''}
@@ -21,7 +22,7 @@ function Jumbotron(props) {
         text-center
         `}>
       <div className="container" >
-        <div className="row justify-content-center" style={style.bgImg}>
+        <div className="row justify-content-center">
           <div className="col-12">
             <h1>{props.pageTitle}</h1>
           </div>

@@ -42,7 +42,7 @@ class Search extends React.Component {
       this.handleCrSearch();
     }
     this.setState({
-      searchTerm:"",
+      searchTerm: "",
       Cr: 0
     })
   };
@@ -117,95 +117,93 @@ class Search extends React.Component {
   }
 
   render() {
-    const imgUrl="../../public/images/paper.jpg"
-    const style ={
-      bg:{
-        backgroundImage: 'url(' + imgUrl + ')',
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover"
+  
+    const style= {
+      bgOp:{
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
       }
-    }
+    };
+
     return (
       <React.Fragment>
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Search for your next grudge match!"} />
-        <div className="container" style={style.bg}>
-          <Row>
-            <div className="card col-12 col-md-8 p-0">
-              <h2 className="card-header"> Search for a Monster!</h2>
-              <div className="card-body">
-                <form>
-                  <div className="row">
-                    <div className="col-6 m-2">
-                      <label htmlFor="monster-search">Search</label>
-                      <input type="text" className="form-control" placeholder="search a monster" id="moster-search" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
+          <div className="container">
+            <Row>
+              <div className="card col-12 col-md-8 p-0" style={style.bgOp}>
+                <h2 className="card-header"> Search for a Monster!</h2>
+                <div className="card-body">
+                  <form>
+                    <div className="row">
+                      <div className="col-6 m-2">
+                        <label htmlFor="monster-search">Search</label>
+                        <input type="text" className="form-control" placeholder="search a monster" id="moster-search" value={this.state.searchTerm} name="searchTerm" onChange={this.handleInputChange} />
+                      </div>
+                      <div className="col-5 m-2">
+                        <label htmlFor="cr-search">Challenge Rating</label>
+                        <input type="number" className="form-control" id="cr-search" placeholder="search a Challenge Rating" value={this.state.Cr} name="Cr" onChange={this.handleInputChange} />
+                      </div>
+                      <button type="button" id="flight-status-submit" className="btn btn-secondary col-md-8 ml-3" onClick={this.handleFormSubmit} >Submit</button>
                     </div>
-                    <div className="col-5 m-2">
-                      <label htmlFor="cr-search">Challenge Rating</label>
-                      <input type="number" className="form-control" id="cr-search" placeholder="search a Challenge Rating" value={this.state.Cr} name="Cr" onChange={this.handleInputChange} />
-                    </div>
-                    <button type="button" id="flight-status-submit" className="btn btn-secondary col-md-8 ml-3" onClick={this.handleFormSubmit} >Submit</button>
-                  </div>
-                </form>
+                  </form>
+                </div>
+              </div>
+              <UserAuth handlePartyButton={this.handlePartyButton} />
+            </Row>
+
+            <div className="card p-0 col-12 mt-2" style={style.bgOp}>
+              <h2 className="card-header text-center col-12">Monsters</h2>
+              <div className="card-body text-center">
+                <table className="col-12">
+                  <tbody>
+                    <tr>
+                      <th className="m-1" scope="col"> Name </th>
+                      <th className="m-1" scope="col"> Type </th>
+                      <th className="m-1" scope="col"> Size </th>
+                      <th className="m-1" scope="col"> AC </th>
+                      <th className="m-1" scope="col">HP</th>
+                      <th className="m-1" scope="col">Speeds</th>
+                      <th className="m-1" scope="col">STR</th>
+                      <th className="m-1" scope="col"> DEX </th>
+                      <th className="m-1" scope="col"> CON </th>
+                      <th className="m-1" scope="col"> INT </th>
+                      <th className="m-1" scope="col"> WIS </th>
+                      <th className="m-1" scope="col"> CHA </th>
+                      <th className="m-1" scope="col"> SavThrows </th>
+                      <th className="m-1" scope="col"> Skills </th>
+                      <th className="m-1" scope="col"> Sense </th>
+                      <th className="m-1" scope="col"> CR </th>
+                    </tr>
+
+                    {this.state.monsterList.length ? (
+                      this.state.monsterList.map(monster => {
+                        return (
+                          <tr key={monster.Name}>
+                            <td>{monster.Name}</td>
+                            <td>{monster.Type}</td>
+                            <td>{monster.Size}</td>
+                            <td>{monster.AC}</td>
+                            <td>{monster.HP}</td>
+                            <td>{monster.Speeds}</td>
+                            <td>{monster.STR}</td>
+                            <td>{monster.DEX}</td>
+                            <td>{monster.CON}</td>
+                            <td>{monster.INT}</td>
+                            <td>{monster.WIS}</td>
+                            <td>{monster.CHA}</td>
+                            <td>{monster.SavThrows}</td>
+                            <td>{monster.Skills}</td>
+                            <td>{monster.Sense}</td>
+                            <td>{monster.CR}</td>
+                          </tr>
+                        )
+                      })
+                    ) : ""
+                    }
+                  </tbody>
+                </table>
               </div>
             </div>
-            <UserAuth handlePartyButton={this.handlePartyButton} />
-          </Row>
-
-          <div className="card p-0 col-12 mt-2">
-            <h2 className="card-header text-center col-12">Monsters</h2>
-            <div className="card-body text-center">
-              <table className="col-12">
-                <tbody>
-                  <tr>
-                    <th className="m-1" scope="col"> Name </th>
-                    <th className="m-1" scope="col"> Type </th>
-                    <th className="m-1" scope="col"> Size </th>
-                    <th className="m-1" scope="col"> AC </th>
-                    <th className="m-1" scope="col">HP</th>
-                    <th className="m-1" scope="col">Speeds</th>
-                    <th className="m-1" scope="col">STR</th>
-                    <th className="m-1" scope="col"> DEX </th>
-                    <th className="m-1" scope="col"> CON </th>
-                    <th className="m-1" scope="col"> INT </th>
-                    <th className="m-1" scope="col"> WIS </th>
-                    <th className="m-1" scope="col"> CHA </th>
-                    <th className="m-1" scope="col"> SavThrows </th>
-                    <th className="m-1" scope="col"> Skills </th>
-                    <th className="m-1" scope="col"> Sense </th>
-                    <th className="m-1" scope="col"> CR </th>
-                  </tr>
-
-                  {this.state.monsterList.length ? (
-                    this.state.monsterList.map(monster => {
-                      return (
-                        <tr key={monster.Name}>
-                          <td>{monster.Name}</td>
-                          <td>{monster.Type}</td>
-                          <td>{monster.Size}</td>
-                          <td>{monster.AC}</td>
-                          <td>{monster.HP}</td>
-                          <td>{monster.Speeds}</td>
-                          <td>{monster.STR}</td>
-                          <td>{monster.DEX}</td>
-                          <td>{monster.CON}</td>
-                          <td>{monster.INT}</td>
-                          <td>{monster.WIS}</td>
-                          <td>{monster.CHA}</td>
-                          <td>{monster.SavThrows}</td>
-                          <td>{monster.Skills}</td>
-                          <td>{monster.Sense}</td>
-                          <td>{monster.CR}</td>
-                        </tr>
-                      )
-                    })
-                  ) : ""
-                  }
-                </tbody>
-              </table>
-            </div>
           </div>
-        </div>
 
         <br /><br />
       </React.Fragment>
