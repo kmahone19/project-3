@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
-    return queryInterface.bulkInsert('parties', [{
+    return queryInterface.bulkInsert('Parties', [{
       party_name: "temp",
       party_lvl: 5,
     
