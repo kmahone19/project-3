@@ -122,15 +122,13 @@ class Search extends React.Component {
       bgOp:{
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
       },
-      pageHeight:{
-        height:"100vh"
-      }
+     
     };
 
     return (
       <React.Fragment>
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Search for your next grudge match!"} />
-          <div className="container" style={style.pageHeight}>
+          <div className="container" >
             <Row>
               <div className="card col-12 col-md-8 p-0" style={style.bgOp}>
                 <h2 className="card-header"> Search for a Monster!</h2>
@@ -208,7 +206,7 @@ class Search extends React.Component {
             </div>
           </div>
 
-        <br /><br />
+        <br /><br /> <br /><br /> <br /><br /> <br /><br />
       </React.Fragment>
     )
   }
