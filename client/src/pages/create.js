@@ -89,13 +89,16 @@ class create extends React.Component {
     const style= {
       bgOp:{
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      },
+      pageHeight:{
+        height:"100vh"
       }
     };
 
     return (
       <React.Fragment>
         <Jumbotron fluid bg={"dark"} color={'light'} pageTitle={"Create A Party!"} />
-        <div className="container">
+        <div className="container" style={style.pageHeight}>
           <Row>
             <div style={style.bgOp} className="card col-12 col-md-8 p-0">
               <h2 className="card-header">Create Your Party!</h2>
