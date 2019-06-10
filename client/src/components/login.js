@@ -35,7 +35,7 @@ class login extends React.Component {
         console.log(accessToken.data);
         localStorage.setItem("accessToken", accessToken.data);
         this.handleGetUserInfo();
-        swal("Success", "Your all good to start adding parties", "success")
+        window.location.reload();
       })
       .catch(err => console.log(err));
     

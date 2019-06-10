@@ -45,11 +45,17 @@ class userInfo extends React.Component {
   }
 
   render() {
+
+    const style= {
+      bgOp:{
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      }
+    };
     
     return (
 
-      <div className="col-12 col-md-4">
-        <div id="user-info" className="border p-2 rounded">
+      <div className="col-12 col-md-4" style={style.bgOp}>
+        <div id="user-info" className="p-2 rounded">
           <h3 id="full-name" className="font-weight-bold">{this.state.UserInfo.firstName}{this.state.UserInfo.lastName}</h3>
           <div className="card-body">
             <button id="party-btn" className="btn btn-block btn-secondary" onClick={this.handlePartyInfo}>Show Your Parties!</button>

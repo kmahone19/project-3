@@ -30,6 +30,8 @@ function UserAuth(props) {
     const token = localStorage.getItem("accessToken");
     if (token) {
       setActiveScreen("yes")
+    } else if (!token){
+      setActiveScreen("no")
     }
   }
 
