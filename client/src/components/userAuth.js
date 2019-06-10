@@ -8,8 +8,8 @@ import UserInfo from "../components/userInfo"
 
 function UserAuth(props) {
 
-  const style= {
-    bgOp:{
+  const style = {
+    bgOp: {
       backgroundColor: 'rgba(255, 255, 255, 0.5)',
     }
   };
@@ -30,18 +30,18 @@ function UserAuth(props) {
     const token = localStorage.getItem("accessToken");
     if (token) {
       setActiveScreen("yes")
-    } else if (!token){
+    } else if (!token) {
       setActiveScreen("no")
     }
   }
 
-  
+
   return (
     <React.Fragment >
       {
         isLogedIn === "no" ?
           (<div className="col-12 col-md-4 p-1" style={style.bgOp}>
-            <div  className="border p-2 rounded" >
+            <div className="border p-2 rounded" >
               <h3 id="right-column-title" className="text-center">Login/Sign Up!</h3>
               <div>
                 <div className="list-group list-group-horizontal-md mt-3" id="user-tabs" role="tablist">
@@ -67,8 +67,8 @@ function UserAuth(props) {
               </div>
             </div>
 
-          </div>): <UserInfo handlePartyButton={props.handlePartyButton}/>
-    }
+          </div>) : <UserInfo handlePartyButton={props.handlePartyButton} />
+      }
     </React.Fragment>
   );
 }
